@@ -22,6 +22,12 @@ module.exports = yeoman.Base.extend({
       this.props = props;
     }.bind(this));
   },
+  git:function(){
+  var done = this.async();
+  this.spawnCommand('git',['init']).on('err',function(){
+  	this.log('Error in git init');
+  });
+  },
 
   writing: function () {
     this.fs.copy(
