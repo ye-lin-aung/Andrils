@@ -1,42 +1,69 @@
-'use strict';
+'us strict';
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 
 module.exports = yeoman.Base.extend({
-  prompting: function () {
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the swell ' + chalk.red('generator-andrils') + ' generator!'
-    ));
+	prompting: function () {
+		// Have Yeoman greet the user.
+		this.log(yosay(
+			'Welcome to the swell ' + chalk.red('generator-andrils') + ' generator!'
+		));
 
-    var prompts = [{
-      type: 'confirm',
-      name: 'someAnswer',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+		var prompts = [{
+			type: 'confirm',
+			name: 'someAnswer',
+			message: 'Would you like to enable this option?',
+			default: true
+		}];
 
-    return this.prompt(prompts).then(function (props) {
-      // To access props later use this.props.someAnswer;
-      this.props = props;
-    }.bind(this));
-  },
-  git:function(){
-  var done = this.async();
-  this.spawnCommand('git',['init']).on('err',function(){
-  	this.log('Error in git init');
-  });
-  },
+		return this.prompt(prompts).then(function (props) {
+			// To access props later use this.props.someAnswer;
+			this.props = props;
+		}.bind(this));
+	},
 
-  writing: function () {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
-  },
+	ask_packageName:function(){
 
-  install: function () {
-    this.installDependencies();
-  }
+		return this.prompt([{
+			type: 'input',
+			name: 'appname',
+			message: 'Enter the application name',
+			default: 'andrils'
+
+		}]).then(function(props){
+			this.appname = props.appname;
+		}.bind(this));
+	},
+	ask_companyDomain:function(){
+	
+	return this.prompt([{
+		type: 'input',
+		name: 'domain',
+		message:'Enter the company domain Name',
+		default: 'andrils'
+	}]).then(function(props){
+		this.domain =	 props.domain + ".com";
+		this.packagename = "com."+props.domain+"."+this.appname;
+	}.bind(this));
+	},
+	git_init:function(){
+
+		this.spawnCommandSync('git',['init']);
+		this.log(chalk.yellow('Application Name:')+this.appname);
+		this.log(chalk.yellow('Company Domain:')+this.domain);
+		this.log(chalk.yellow('Package Name:')+this.packagename);
+	},
+
+	writing: function () {
+		this.fs.copy(
+			this.templatePath('Andrils/'),
+			this.destinationPath('android/'+this.appname)
+
+		);
+	},
+
+	install: function () {
+		this.installDependencies();
+	}
 });
