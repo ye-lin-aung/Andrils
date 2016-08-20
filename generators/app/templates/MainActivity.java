@@ -1,4 +1,4 @@
-package com.application.andrils;
+package <%= pack_name %>;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
