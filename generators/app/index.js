@@ -45,11 +45,11 @@ module.exports = yeoman.Base.extend({
 
     return this.prompt(prompts).then(props=>{
 
-    	this.domain = props.domain.split('.')[0];
+    	this.domain = props.domain.split('.')[0].toLowerCase();
     	this.targetSdk = props.targetSdk
     	this.minSdk = props.minSdk
-    	this.appName = props.appname
-    	this.pack_name = "com."+props.domain+"."+this.appName;
+    	this.appName = props.appname.toLowerCase();
+    	this.pack_name = "com."+this.domain+"."+this.appName;
     });
 
 },
@@ -63,6 +63,9 @@ writing: function () {
 	var unit_test_path = src_path+'androidTest/java/'+package_path;
 	var file_path = src_path+'main/java/';
 	var absolute_path = file_path+ package_path;
+	var network_file_path = absolute_path+'/network';
+	
+	this.network_package_path = package_path.replace(/\//g,'.')+"."+"network";
 	this.fs.copy(
 		this.templatePath('Andrils/'),
 		this.destinationPath('android/'+this.appName)
@@ -73,11 +76,13 @@ writing: function () {
 	mkdirp(absolute_path);
 	mkdirp(instrument_test_path);
 	mkdirp(unit_test_path);
+	mkdirp(network_file_path);
 	this.template('test/ExampleUnitTest.java',unit_test_path+'/ExampleUnitTest.java');
 	this.template('test/ExampleInstrumentedTest.java',instrument_test_path+'/ExampleInstrumentedTest.java');
 	this.template('init/AndroidManifest.xml','android/'+this.appName+'/app/src/main/AndroidManifest.xml');
 	this.template('init/build.gradle','android/'+this.appName+'/app/build.gradle');
 	this.template('init/MainActivity.java',absolute_path+'/MainActivity.java');
+	this.template('init/NetworkChecker.java',network_file_path+'/NetworkChecker.java');
 
 
 
