@@ -10,11 +10,10 @@ module.exports = yeoman.Base.extend({
 
 
 	prompting:function(){
-		this.log(yosay('Welcome to the swell'+ chalk.red('generator-andrils')+'generator!'));
+		this.log(yosay('Welcome from '+ chalk.red('generator-andrils')+'!'));
 		const prompts =[{
 			type: 'input',
-			name: 'pack_name',
-			store: true,
+			name: 'appname',
 			message: 'Enter the application name',
 			default: 'andrils',
 			validate: function (input) {
@@ -31,11 +30,11 @@ module.exports = yeoman.Base.extend({
 			default: 'andrils'
 
 		},
-		{
+		{	
 			name: 'targetSdk',
 			message: 'What Android SDK will you be targeting?',
 			store: true,
-        default: 23  // Android 6.0 (Marshmallow)
+       		default: 23  // Android 6.0 (Marshmallow)
     	},
    		{
     	name: 'minSdk',
@@ -45,51 +44,52 @@ module.exports = yeoman.Base.extend({
     	}];
 
     return this.prompt(prompts).then(props=>{
-    	this.pack_name = props.pack_name	
-    	this.domain = props.domain
-    	this.targetSdk = props.targertSdk
+
+    	this.domain = props.domain.split('.')[0];
+    	this.targetSdk = props.targetSdk
     	this.minSdk = props.minSdk
-    	this.packagename = "com."+props.domain+"."+this.pack_name;
+    	this.appName = props.appname
+    	this.pack_name = "com."+props.domain+"."+this.appName;
     });
 
-
-
-
-
 },
 
-git_init:function(){
 
-	this.spawnCommandSync('git',['init']);
-	this.log(chalk.yellow('Application Name:')+this.appname);
-	this.log(chalk.yellow('Company Domain:')+this.domain);
-	this.log(chalk.yellow('Package Name:')+this.packagename);
-
-
-},
 
 writing: function () {
-	var file_path = 'android/'+this.appname+'/app/src/main/java/';
-	var absolute_path = file_path+this.packagename.split('.')[0]+'/'+this.packagename.split('.')[1]+'/'+this.packagename.split('.')[2];
+	var package_path = this.pack_name.split('.')[0]+'/'+this.pack_name.split('.')[1]+'/'+this.pack_name.split('.')[2];
+	var src_path ='android/'+this.appName+'/app/src/';
+	var instrument_test_path = src_path+'test/java/'+package_path;
+	var unit_test_path = src_path+'androidTest/java/'+package_path;
+	var file_path = src_path+'main/java/';
+	var absolute_path = file_path+ package_path;
 	this.fs.copy(
 		this.templatePath('Andrils/'),
-		this.destinationPath('android/'+this.appname)
+		this.destinationPath('android/'+this.appName)
 
 		);
+
 
 	mkdirp(absolute_path);
+	mkdirp(instrument_test_path);
+	mkdirp(unit_test_path);
+	this.template('test/ExampleUnitTest.java',unit_test_path+'/ExampleUnitTest.java');
+	this.template('test/ExampleInstrumentedTest.java',instrument_test_path+'/ExampleInstrumentedTest.java');
+	this.template('init/AndroidManifest.xml','android/'+this.appName+'/app/src/main/AndroidManifest.xml');
+	this.template('init/build.gradle','android/'+this.appName+'/app/build.gradle');
+	this.template('init/MainActivity.java',absolute_path+'/MainActivity.java');
 
 
-	this.fs.copyTpl(this.templatePath('init/AndroidManifest.xml'),
-		this.destinationPath('android/'+this.appname+'/app/src/main/AndroidManifest.xml'),
-		{pack_name:this.packagename});
-	
-	this.fs.copyTpl(
-		this.templatePath('init/MainActivity.java'),
-		this.destinationPath(absolute_path+'/MainActivity.java'),
-		{ pack_name: this.packagename }
-		);
 
+},done:function(){
+
+
+	this.log(chalk.yellow('Application Name:')+this.appName);
+	this.log(chalk.yellow('Company Domain:')+this.domain);
+	this.log(chalk.yellow('TargetSdk:')+this.targetSdk);
+	this.log(chalk.yellow('MinSdk:')+this.minSdk);
+
+	this.log(chalk.yellow('Package Name:')+this.pack_name);
 
 
 },install: function () {

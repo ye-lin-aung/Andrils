@@ -1,4 +1,4 @@
-package com.application.andrils;
+package <%= pack_name %>;
 
 import org.junit.Test;
 
