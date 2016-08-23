@@ -92,12 +92,12 @@ writing: function () {
 },done:function(){
 
 
-	this.log(chalk.yellow('Application Name:')+this.appName);
-	this.log(chalk.yellow('Company Domain:')+this.domain);
-	this.log(chalk.yellow('TargetSdk:')+this.targetSdk);
-	this.log(chalk.yellow('MinSdk:')+this.minSdk);
+	this.log(chalk.magenta('Application Name:')+this.appName);
+	this.log(chalk.magenta('Company Domain:')+this.domain);
+	this.log(chalk.magenta('TargetSdk:')+this.targetSdk);
+	this.log(chalk.magenta('MinSdk:')+this.minSdk);
 
-	this.log(chalk.yellow('Package Name:')+this.pack_name);
+	this.log(chalk.magenta('Package Name:')+this.pack_name);
 
 
 },install: function () {
