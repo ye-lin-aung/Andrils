@@ -1,7 +1,8 @@
 {
 
-	"appName" : "<%= appName%>"
+	"appName" : "<%= appName %>",
 	
+       	"packageName": "<%= pack_name %>"
 
 
 

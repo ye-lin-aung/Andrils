@@ -58,16 +58,16 @@ module.exports = yeoman.Base.extend({
 
 
 writing: function () {
-	var package_path = this.pack_name.split('.')[0]+'/'+this.pack_name.split('.')[1]+'/'+this.pack_name.split('.')[2];
+	this.package_path = this.pack_name.split('.')[0]+'/'+this.pack_name.split('.')[1]+'/'+this.pack_name.split('.')[2];
 	var src_path =this.appName+'/app/src/';
-	var instrument_test_path = src_path+'test/java/'+package_path;
-	var unit_test_path = src_path+'androidTest/java/'+package_path;
+	var instrument_test_path = src_path+'test/java/'+this.package_path;
+	var unit_test_path = src_path+'androidTest/java/'+this.package_path;
 	var file_path = src_path+'main/java/';
-	var absolute_path = file_path+ package_path;
+	var absolute_path = file_path+ this.package_path;
 	var network_file_path = absolute_path+'/network';
 
 		
-	this.network_package_path = package_path.replace(/\//g,'.')+"."+"network";
+	this.network_package_path = this.package_path.replace(/\//g,'.')+"."+"network";
 	this.fs.copy(
 		this.templatePath('Andrils/'),
 		this.destinationPath(this.appName)
@@ -87,7 +87,7 @@ writing: function () {
 	this.template('init/NetworkChecker.java',network_file_path+'/NetworkChecker.java');
 	this.template('andrils.json',this.appName+'/andrils.json');
 
-	
+
 
 },done:function(){
 
