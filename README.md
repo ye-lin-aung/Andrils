@@ -19,6 +19,12 @@ then generate model
 ```bash
 yo andrils:model User id:int title:string item:List@String 
 ```
+Reset and generate all models
+```bash
+yo andrils:model User id:int title:string item:List@String --reset
+```
+
+
 
 ## Getting To Know Yeoman
 
