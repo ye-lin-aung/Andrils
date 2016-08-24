@@ -65,9 +65,10 @@ writing: function () {
 	var file_path = src_path+'main/java/';
 	var absolute_path = file_path+ this.package_path;
 	var network_file_path = absolute_path+'/network';
+	var model_path = absolute_path+'/model';
+	this.util_path = absolute_path+'/util';
 
-		
-	this.network_package_path = this.package_path.replace(/\//g,'.')+"."+"network";
+	
 	this.fs.copy(
 		this.templatePath('Andrils/'),
 		this.destinationPath(this.appName)
@@ -79,12 +80,16 @@ writing: function () {
 	mkdirp(instrument_test_path);
 	mkdirp(unit_test_path);
 	mkdirp(network_file_path);
+	mkdirp(model_path);
+	mkdirp(this.util_path);
 	this.template('test/ExampleUnitTest.java',unit_test_path+'/ExampleUnitTest.java');
 	this.template('test/ExampleInstrumentedTest.java',instrument_test_path+'/ExampleInstrumentedTest.java');
 	this.template('init/AndroidManifest.xml',this.appName+'/app/src/main/AndroidManifest.xml');
 	this.template('init/build.gradle',this.appName+'/app/build.gradle');
 	this.template('init/MainActivity.java',absolute_path+'/MainActivity.java');
 	this.template('init/NetworkChecker.java',network_file_path+'/NetworkChecker.java');
+	this.template('init/Intents.java',this.util_path+'/Intents.java');
+	this.template('init/andrils_default.xml',this.appName+'/app/src/main/res/values/andrils_default.xml');
 	this.template('andrils.json',this.appName+'/andrils.json');
 
 
@@ -96,7 +101,6 @@ writing: function () {
 	this.log(chalk.magenta('Company Domain:')+this.domain);
 	this.log(chalk.magenta('TargetSdk:')+this.targetSdk);
 	this.log(chalk.magenta('MinSdk:')+this.minSdk);
-
 	this.log(chalk.magenta('Package Name:')+this.pack_name);
 
 

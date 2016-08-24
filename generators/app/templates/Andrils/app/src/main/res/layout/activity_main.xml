@@ -16,7 +16,7 @@
 			android:layout_height="wrap_content"
 			android:textColor="@color/colorPrimary"
 			android:gravity="center"
-			android:text="Welcome from Andrils!"
+			android:text="@string/welcome_text"
 			android:layout_gravity="center"/>
 </LinearLayout>
 

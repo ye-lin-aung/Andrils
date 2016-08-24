@@ -1,4 +1,4 @@
-package <%= network_package_path %>;
+package  <%= pack_name %>.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
