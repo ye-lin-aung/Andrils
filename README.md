@@ -14,6 +14,11 @@ Then generate your new project:
 ```bash
 yo andrils
 ```
+then generate model
+
+```bash
+yo andrils:model User id:int title:string item:List@String 
+```
 
 ## Getting To Know Yeoman
 
