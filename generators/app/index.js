@@ -60,8 +60,8 @@ module.exports = yeoman.Base.extend({
 writing: function () {
 	this.package_path = this.pack_name.split('.')[0]+'/'+this.pack_name.split('.')[1]+'/'+this.pack_name.split('.')[2];
 	var src_path =this.appName+'/app/src/';
-	var instrument_test_path = src_path+'test/java/'+this.package_path;
-	var unit_test_path = src_path+'androidTest/java/'+this.package_path;
+	var instrument_test_path = src_path+'androidTest/java/'+this.package_path;
+	var unit_test_path = src_path+'test/java/'+this.package_path;
 	var file_path = src_path+'main/java/';
 	var absolute_path = file_path+ this.package_path;
 	var network_file_path = absolute_path+'/network';
@@ -81,7 +81,7 @@ writing: function () {
 	mkdirp(unit_test_path);
 	mkdirp(network_file_path);
 	mkdirp(model_path);
-	mkdirp(this.util_path);
+	mkdirp(this.util_path)
 	this.template('test/ExampleUnitTest.java',unit_test_path+'/ExampleUnitTest.java');
 	this.template('test/ExampleInstrumentedTest.java',instrument_test_path+'/ExampleInstrumentedTest.java');
 	this.template('init/AndroidManifest.xml',this.appName+'/app/src/main/AndroidManifest.xml');
