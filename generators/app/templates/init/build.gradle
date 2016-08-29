@@ -6,8 +6,8 @@ android {
   defaultConfig {
     applicationId "<%= pack_name %>"
     minSdkVersion <%= minSdk %>
-    targetSdkVersion <%= targetSdk %>
-    versionCode 1
+        targetSdkVersion <%= targetSdk %>
+        versionCode 1
     versionName "1.0"
     dataBinding {
       enabled = true
@@ -23,10 +23,12 @@ android {
 }
 
 dependencies {
+  compile project(':library')
   compile fileTree(dir: 'libs', include: ['*.jar'])
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
+  compile 'com.github.nisrulz:android-utils:1.0.0'
   compile 'com.android.support:appcompat-v7:24.1.1'
   testCompile 'junit:junit:4.12'
   compile 'com.android.support:support-annotations:24.1.1'

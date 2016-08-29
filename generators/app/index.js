@@ -64,7 +64,7 @@ writing: function () {
 	var unit_test_path = src_path+'test/java/'+this.package_path;
 	var file_path = src_path+'main/java/';
 	var absolute_path = file_path+ this.package_path;
-	var network_file_path = absolute_path+'/network';
+	//var network_file_path = absolute_path+'/network';
 	var model_path = absolute_path+'/model';
 	this.util_path = absolute_path+'/util';
 
@@ -74,12 +74,12 @@ writing: function () {
 		this.destinationPath(this.appName)
 
 		);
-
+	
 	
 	mkdirp(absolute_path);
 	mkdirp(instrument_test_path);
 	mkdirp(unit_test_path);
-	mkdirp(network_file_path);
+	//mkdirp(network_file_path);
 	mkdirp(model_path);
 	mkdirp(this.util_path)
 	this.template('test/ExampleUnitTest.java',unit_test_path+'/ExampleUnitTest.java');
@@ -87,7 +87,7 @@ writing: function () {
 	this.template('init/AndroidManifest.xml',this.appName+'/app/src/main/AndroidManifest.xml');
 	this.template('init/build.gradle',this.appName+'/app/build.gradle');
 	this.template('init/MainActivity.java',absolute_path+'/MainActivity.java');
-	this.template('init/NetworkChecker.java',network_file_path+'/NetworkChecker.java');
+	//this.template('init/NetworkChecker.java',network_file_path+'/NetworkChecker.java');
 	this.template('init/Intents.java',this.util_path+'/Intents.java');
 	this.template('init/andrils_default.xml',this.appName+'/app/src/main/res/values/andrils_default.xml');
 	this.template('andrils.json',this.appName+'/andrils.json');
