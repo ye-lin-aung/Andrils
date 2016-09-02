@@ -1,4 +1,4 @@
-# generator-andrils [![NPM version][npm-image]][npm-url] Android Scaffold Generator
+# generator-andrils [![NPM version][npm-image]][npm-url] Android Code Generator
 
 ## Installation
 
