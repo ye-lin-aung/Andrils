@@ -1,4 +1,5 @@
-# generator-andrils [![NPM version][npm-image]][npm-url] Android Code Generator
+# Android Code Generator 
+generator-andrils [![NPM version][npm-image]][npm-url]
 
 ## Installation
 
